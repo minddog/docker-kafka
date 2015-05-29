@@ -8,6 +8,10 @@
 # * LOG_RETENTION_BYTES: configure the size at which segments are pruned from the log, (default is 1073741824, for 1GB)
 
 # Configure advertised host/port if we run in helios
+if [ ! -z "$TUTUM_IP_ADDRESS" ]; then
+	ADVERTISED_HOST=`echo $TUTUM_IP_ADDRESS | cut -d'/' -f 1| tail -n 1`
+fi
+
 if [ ! -z "$HELIOS_PORT_kafka" ]; then
     ADVERTISED_HOST=`echo $HELIOS_PORT_kafka | cut -d':' -f 1 | xargs -n 1 dig +short | tail -n 1`
     ADVERTISED_PORT=`echo $HELIOS_PORT_kafka | cut -d':' -f 2`
